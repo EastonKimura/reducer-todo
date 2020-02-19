@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 
-
 const TodoForm = ({ dispatch }) => {
   const [newItemText, setNewItemText] = useState('');
   const handleChanges = e => {
@@ -8,30 +7,31 @@ const TodoForm = ({ dispatch }) => {
   };
   const handleSubmit = e => {
     e.preventDefault();
-    dispatch({ item: 'ADD_TODO', payload: newItemText});
+    dispatch({ type: 'ADD_TODO', payload: newItemText});
     setNewItemText('');
   };
-  const handleClear = e => {
-    dispatch({ type: 'CLEAR_COMPLETED' });
-  }
-  return(
-    <form onSubmit={handleSubmit}>
-      <input 
-        name='item'
-        type='text'
-        id='item'
-        placeholder='...todo'
-        value={newItemText}
-        onChange={handleChanges}
-      />
-      <button type='submit'>Add Todo</button>
-      <button 
-      className='clear' 
-      onClick={handleClear}
-    >
-      Clear Completed
-    </button>
-    </form>
+  const handleClear = () => {
+    dispatch({ type: "CLEAR_COMPLETED" });
+  };
+  return (
+    <div className="todo-form">
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="todo"
+          value={newItemText}
+          onChange={handleChanges}
+        />
+        <div className="buttons">
+          <button className="submit-btn" type="submit">
+            Add Todo
+          </button>
+          <button className="clear-btn" onClick={handleClear}>
+            Clear Completed
+          </button>
+        </div>
+      </form>
+    </div> 
   );
 }
 export default TodoForm; 
